@@ -51,14 +51,14 @@ function App() {
 
         <Link to="/landing">Landing</Link>
 
-        <button onClick={()=> {
+        <button style={{display: user.authenticated? 'none': ''}} onClick={()=> {
           setUser({authenticated: true});
           console.log('user authenticated clicked:',user.authenticated);
         }}>
           Login
         </button>
         
-        <button onClick={()=>{
+        <button style={{display: user.authenticated? '' : 'none' }} onClick={()=>{
           setUser({authenticated: false});
         }}>
           Logout

@@ -72,9 +72,9 @@ export default function HomePage(props) {
                     <Card.Link onClick={() => onDeleteCandidate(candidate.id)}>
                       <FontAwesomeIcon icon={faTrash} /> Remove
                     </Card.Link>
-                    <Card.Link href={`/candidates/${candidate.id}`}>
-                      <FontAwesomeIcon icon={faEdit} /> Edit
-                    </Card.Link>
+                    <Link to={`/candidates/${candidate.id}`}>
+                      <FontAwesomeIcon icon={faEdit} /> Edit {candidate.id}
+                    </Link>
                   </Card.Body>
                 </Card>
               </Col>

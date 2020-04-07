@@ -3,12 +3,14 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import {Row, Col, Card, ListGroup, Container, ListGroupItem} from "react-bootstrap";
 import { faMap, faEdit, faTrash, faUserMd, faMapPin, faEnvelope, faVenusMars, faBriefcase} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {Link} from 'react-router-dom'
+import {Link, useHistory} from 'react-router-dom'
 import {useSelector} from 'react-redux'
 
 export default function HomePage(props) {
     let [candidates, setCandidates] = useState([])
     let user = useSelector(state => state.user)
+    let history = useHistory();
+    let admin = 'ad@coderschool.vn'
     //get candidates data from API
 
    let getCandidates = async () => {
@@ -35,6 +37,8 @@ export default function HomePage(props) {
         console.log("Error: ", error);
       }
     };
+
+
 
     return (
       <Container fluid>
@@ -71,10 +75,16 @@ export default function HomePage(props) {
                     </ListGroupItem>
                   </ListGroup>
                   <Card.Body>
-                    <Card.Link onClick={() => onDeleteCandidate(candidate.id)}>
+                    <Card.Link style={{display:(user.email==candidate.email || user.email==admin)? '':'none'}}  
+                    onClick={() => onDeleteCandidate(candidate.id)}>
                       <FontAwesomeIcon icon={faTrash} /> Remove
                     </Card.Link>
-                    <Link to={`/candidates/${candidate.id}`}>
+                    <Link style={{display:(user.email==candidate.email || user.email==admin)? '':'none'}} onClick={()=>{
+                      if(user.email!==candidate.email&&user.email!==admin){
+                        alert('You can only edit your account');
+                        history.push('/')
+                      } else history.push(`/candidates/${candidate.id}`)
+                    } }>
                       <FontAwesomeIcon icon={faEdit} /> Edit {candidate.id}
                     </Link>
                   </Card.Body>

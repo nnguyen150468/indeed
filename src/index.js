@@ -3,11 +3,36 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import {createStore} from 'redux'
+import {Provider} from 'react-redux'
+
+let initialState = {
+  user: {
+    email: '',
+    password: '',
+    authenticated: false
+  }
+}
+
+function indeedReducer (state=initialState, action){
+  switch(action.type){
+    case 'LOGIN':
+      return {...state,
+        user : action.payload};
+    case 'LOGOUT':
+      return {...state,
+        user: action.payload};
+    default:
+      return state
+  }
+}
+
+const store = createStore(indeedReducer);
 
 ReactDOM.render(
-  <React.StrictMode>
+  <Provider store={store}>
     <App />
-  </React.StrictMode>,
+  </Provider>,
   document.getElementById('root')
 );
 

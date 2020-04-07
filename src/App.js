@@ -1,35 +1,21 @@
 import React, {useState} from 'react';
 import './App.css';
-import { BrowserRouter as Router, Route, Switch, Redirect, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch, Redirect, Link, useHistory } from "react-router-dom";
 import HomePage from './pages/HomePage'
 import CreateCandidate from './pages/CreateCandidate'
 import CandidatePage from './pages/CandidatePage'
 import CompanyPage from './pages/CompanyPage'
 import "bootstrap/dist/css/bootstrap.min.css";
-import Auth from './pages/Auth'
-import Landing from './pages/Landing'
+import Login from './pages/Login'
+
 import Page404 from './pages/Page404'
-// import ProtectedRoute from './pages/ProtectedRoute'
+import {useSelector, useDispatch} from 'react-redux'
+
 
 
 function App() {
-  let [user, setUser] = useState({authenticated:false})
-
-  // let ProtectedRoute = ({component:Component, user, ...rest}) => {
-  //   return (
-  //     <Route {...rest} user={user} render={(props)=> {
-  //       if(user.authenticated===true){
-  //         return(
-  //           <Component {...props}/>
-  //         )
-  //       } else {
-  //         return(
-  //           <Redirect to={{pathname:'/'}} />
-  //         )
-  //       }
-  //     }}  />
-  //   )
-  // }
+  let user = useSelector(state => state.user)
+  let dispatch = useDispatch()
 
     const ProtectedRoute = (props) => {
       if(user.authenticated){
@@ -41,28 +27,26 @@ function App() {
       }
     }
 
+    const logOut = () => {
+      console.log('logout');
+      let user = {email: '', password: '', authenticated: false}
+      dispatch({type: 'LOGOUT', payload: user});  
+    }
+
   return (
     <div className="App">
+      <div style={{display: user.authenticated? '':'none'}} >Welcome, <span className="font-weight-bold">{user.email.split('@')[0]}</span></div>
      <Router>
 
         <Link to="/">Home page</Link>
 
         <Link to="/createCandidate">Create Candidate</Link>
 
-        <Link to="/landing">Landing</Link>
-
-        <button style={{display: user.authenticated? 'none': ''}} onClick={()=> {
-          setUser({authenticated: true});
-          console.log('user authenticated clicked:',user.authenticated);
-        }}>
-          Login
-        </button>
-        
-        <button style={{display: user.authenticated? '' : 'none' }} onClick={()=>{
-          setUser({authenticated: false});
-        }}>
-          Logout
-        </button>
+        <Link to='/login'>
+          <button className="btn btn-success" style={{display: user.authenticated? 'none': ''}}>
+            Login</button></Link>
+        <button className="btn btn-danger" onClick={()=>logOut()} style={{display: user.authenticated? '': 'none'}}>
+          Logout</button>
 
        <Switch> 
          
@@ -70,11 +54,13 @@ function App() {
 
          <ProtectedRoute path="/candidates/:id" exact render={(props)=><CandidatePage user={user} {...props}/>} />
          
-
-         <Route path="/landing" component={Landing}/>
          <Route path="/createCandidate" component={CreateCandidate}/>
           
+         <Route path="/login" exact component={Login} />
+
          <Route path="*" render={(props)=><Page404 {...props} /> }  />
+
+         
 
        </Switch>
      </Router>

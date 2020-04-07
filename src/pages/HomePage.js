@@ -4,10 +4,11 @@ import {Row, Col, Card, ListGroup, Container, ListGroupItem} from "react-bootstr
 import { faMap, faEdit, faTrash, faUserMd, faMapPin, faEnvelope, faVenusMars, faBriefcase} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {Link} from 'react-router-dom'
-import Auth from './Auth'
+import {useSelector} from 'react-redux'
 
 export default function HomePage(props) {
     let [candidates, setCandidates] = useState([])
+    let user = useSelector(state => state.user)
     //get candidates data from API
 
    let getCandidates = async () => {
@@ -15,6 +16,7 @@ export default function HomePage(props) {
     const result = await fetch(url);
     const data = await result.json();
     console.log("candidates:", data);
+    console.log('user state:',user)
     setCandidates(data);
    }
 

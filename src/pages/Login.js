@@ -17,6 +17,7 @@ export default function Login() {
     }
 
     return (
+        <div className="container d-flex justify-content-center align-items-center" style={{height: "75vh"}}>
         <Form onSubmit={(e)=>login(e)}>
             <Form.Group controlId="formBasicEmail">
                 <Form.Label>Email address</Form.Label>
@@ -39,5 +40,6 @@ export default function Login() {
                 Submit
         </Button>
         </Form>
+        </div>
     )
 }

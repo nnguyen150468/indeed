@@ -5,11 +5,13 @@ import { faMap, faEdit, faTrash, faUserMd, faMapPin, faEnvelope, faVenusMars, fa
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {Link, useHistory} from 'react-router-dom'
 import {useSelector} from 'react-redux'
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
+import Loader from 'react-loader-spinner'
 
 
 
 export default function HomePage(props) {
-    let [candidates, setCandidates] = useState([])
+    let [candidates, setCandidates] = useState(null)
     let user = useSelector(state => state.user)
     let history = useHistory();
     let admin = 'ad@coderschool.vn'
@@ -42,8 +44,24 @@ export default function HomePage(props) {
 
 
 
-    return (
-      <Container fluid>
+    return !candidates? 
+      <div className="d-flex justify-content-center align-items-center" style={{height:"75vh"}}>
+      <Loader className="mt-5"
+      type="TailSpin"
+      color="#00BFFF"
+      height={100}
+      width={100}
+      timeout={3000} //3 secs
+      />
+      </div>
+       : (
+      <Container fluid className="mt-4 text-center">
+       
+          Please log in to edit or delete your profile.  <span className="font-weight-bold">Your email</span> is your login id.
+          <p>
+            If you are the admin, please log in as <span className="font-weight-bold">ad@coderschool.vn</span>
+          </p>
+       
         <Row>
           {candidates.map(candidate => {
             return (
@@ -77,17 +95,19 @@ export default function HomePage(props) {
                     </ListGroupItem>
                   </ListGroup>
                   <Card.Body>
-                    <Card.Link style={{display:(user.email===candidate.email || user.email===admin)? '':'none'}}  
+                    <Card.Link className="mr-2" style={{display:(user.email===candidate.email || user.email===admin)? '':'none'}}  
                     onClick={() => onDeleteCandidate(candidate.id)}>
                       <FontAwesomeIcon icon={faTrash} /> Remove
                     </Card.Link>
-                    <Link style={{display:(user.email===candidate.email || user.email===admin)? '':'none'}} onClick={()=>{
+                    <Link to={`/candidates/${candidate.id}`}
+                     style={{display:(user.email===candidate.email || user.email===admin)? '':'none'}} 
+                     onClick={()=>{
                       if(user.email!==candidate.email&&user.email!==admin){
                         alert('You can only edit your account');
-                        history.push('/')
+                        // history.push('/')
                       } else history.push(`/candidates/${candidate.id}`)
                     } }>
-                      <FontAwesomeIcon icon={faEdit} /> Edit {candidate.id}
+                      <FontAwesomeIcon icon={faEdit} /> Edit
                     </Link>
                   </Card.Body>
                 </Card>

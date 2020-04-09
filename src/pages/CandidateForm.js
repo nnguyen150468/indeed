@@ -90,10 +90,12 @@ export default function CandidateForm(props) {
   // };
 
   return (
-    <Container className="container">
+    <Container className="container mb-5">
       <Row>
         <Col>
+        <div style={{textAlign:"center"}}>
           <img src={candidate.photo_url} alt={candidate.first_name} />
+          </div>
           <Form noValidate validated={validated} onSubmit={onSubmit}>
             <Form.Row>
               <Form.Group as={Col} md="4" controlId="validationCustom01">
@@ -236,7 +238,9 @@ export default function CandidateForm(props) {
                 </Form.Control.Feedback>
               </Form.Group>
             </Form.Row>
+            <div style={{textAlign:"center"}}>
             <Button type="submit">Save</Button>
+            </div>
           </Form>
         </Col>
       </Row>

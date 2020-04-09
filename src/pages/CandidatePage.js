@@ -12,7 +12,7 @@ export default function CandidatePage(props) {
     let {id} = useParams(); //bring the parameter from UR:
 
     const getCandidate = async () => {
-      let url = `http://localhost:${port}/candidates/${id}`
+      let url = `https://nguyen-indeed.herokuapp.com/candidates/${id}`
       let response = await fetch(url);
       let data = await response.json();
       console.log('candidates data:', data)

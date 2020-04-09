@@ -23,7 +23,7 @@ export default function CandidateForm(props) {
   const getCandidate = async () => {
     try {
       const response = await fetch(
-        `http://localhost:${port}/candidates/${candidate.id}`
+        `https://nguyen-indeed.herokuapp.com/candidates/${candidate.id}`
       );
       const data = await response.json();
       setCandidate(data);
@@ -50,7 +50,7 @@ export default function CandidateForm(props) {
     };
     try {
       const response = await fetch(
-        `http://localhost:${port}/candidates/${candidate.id}`,
+        `https://nguyen-indeed.herokuapp.com/candidates/${candidate.id}`,
         config
       );
     } catch (error) {
@@ -72,7 +72,7 @@ export default function CandidateForm(props) {
         "Content-Type": "application/json"
       }
     }
-    const response = await fetch(`http://localhost:${port}/candidates/${candidate.id}`, config);
+    const response = await fetch(`https://nguyen-indeed.herokuapp.com/candidates/${candidate.id}`, config);
     history.goBack();
   }
 

@@ -16,7 +16,7 @@ export default function HomePage(props) {
     //get candidates data from API
 
    let getCandidates = async () => {
-    const url = `http://localhost:${port}/candidates`;
+    const url = `https://nguyen-indeed.herokuapp.com/candidates`;
     const result = await fetch(url);
     const data = await result.json();
     console.log("candidates:", data);
@@ -32,7 +32,7 @@ export default function HomePage(props) {
     const onDeleteCandidate = id => {
       try {
         const config = { method: "DELETE" };
-        fetch(`http://localhost:${port}/candidates/${id}`, config);
+        fetch(`https://nguyen-indeed.herokuapp.com/candidates/${id}`, config);
         const newCandidates = candidates.filter(candidate => candidate.id !== id);
         setCandidates(newCandidates);
       } catch (error) {

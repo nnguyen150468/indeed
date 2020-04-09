@@ -3,6 +3,7 @@ import {useParams, useHistory} from 'react-router-dom'
 import CandidateForm from './CandidateForm'
 import {Container, Col, Row} from 'react-bootstrap'
 
+const port = process.env.PORT || 4000;
 
 export default function CandidatePage(props) {
     console.log({ props });
@@ -11,7 +12,7 @@ export default function CandidatePage(props) {
     let {id} = useParams(); //bring the parameter from UR:
 
     const getCandidate = async () => {
-      let url = `http://localhost:3001/candidates/${id}`
+      let url = `http://localhost:${port}/candidates/${id}`
       let response = await fetch(url);
       let data = await response.json();
       console.log('candidates data:', data)

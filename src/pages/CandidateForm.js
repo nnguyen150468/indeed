@@ -3,6 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { InputGroup, Row, Col, Form, Button, Container } from "react-bootstrap";
 import {useHistory} from 'react-router-dom'
 
+const port = process.env.PORT || 4000;
 
 export default function CandidateForm(props) {
   const [validated, setValidated] = useState(false);
@@ -22,7 +23,7 @@ export default function CandidateForm(props) {
   const getCandidate = async () => {
     try {
       const response = await fetch(
-        `http://localhost:3001/candidates/${candidate.id}`
+        `http://localhost:${port}/candidates/${candidate.id}`
       );
       const data = await response.json();
       setCandidate(data);
@@ -49,7 +50,7 @@ export default function CandidateForm(props) {
     };
     try {
       const response = await fetch(
-        `http://localhost:3001/candidates/${candidate.id}`,
+        `http://localhost:${port}/candidates/${candidate.id}`,
         config
       );
     } catch (error) {
@@ -71,7 +72,7 @@ export default function CandidateForm(props) {
         "Content-Type": "application/json"
       }
     }
-    const response = await fetch(`http://localhost:3001/candidates/${candidate.id}`, config);
+    const response = await fetch(`http://localhost:${port}/candidates/${candidate.id}`, config);
     history.goBack();
   }
 

@@ -6,6 +6,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {Link, useHistory} from 'react-router-dom'
 import {useSelector} from 'react-redux'
 
+const port = process.env.PORT || 4000;
+
 export default function HomePage(props) {
     let [candidates, setCandidates] = useState([])
     let user = useSelector(state => state.user)
@@ -14,7 +16,7 @@ export default function HomePage(props) {
     //get candidates data from API
 
    let getCandidates = async () => {
-    const url = `http://localhost:3001/candidates`;
+    const url = `http://localhost:${port}/candidates`;
     const result = await fetch(url);
     const data = await result.json();
     console.log("candidates:", data);
@@ -30,7 +32,7 @@ export default function HomePage(props) {
     const onDeleteCandidate = id => {
       try {
         const config = { method: "DELETE" };
-        fetch(`http://localhost:3001/candidates/${id}`, config);
+        fetch(`http://localhost:${port}/candidates/${id}`, config);
         const newCandidates = candidates.filter(candidate => candidate.id !== id);
         setCandidates(newCandidates);
       } catch (error) {

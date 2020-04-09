@@ -1,10 +1,9 @@
-import React, {useState} from 'react';
+import React from 'react';
 import './App.css';
-import { BrowserRouter as Router, Route, Switch, Redirect, Link, useHistory } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch, Redirect, Link } from "react-router-dom";
 import HomePage from './pages/HomePage'
 import CreateCandidate from './pages/CreateCandidate'
 import CandidatePage from './pages/CandidatePage'
-import CompanyPage from './pages/CompanyPage'
 import "bootstrap/dist/css/bootstrap.min.css";
 import Login from './pages/Login'
 

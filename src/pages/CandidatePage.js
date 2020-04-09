@@ -1,9 +1,8 @@
 import React, {useState, useEffect} from 'react'
-import {useParams, useHistory} from 'react-router-dom'
+import {useParams} from 'react-router-dom'
 import CandidateForm from './CandidateForm'
 import {Container, Col, Row} from 'react-bootstrap'
 
-const port = process.env.PORT || 4000;
 
 export default function CandidatePage(props) {
     console.log({ props });
@@ -20,7 +19,6 @@ export default function CandidatePage(props) {
     }
 
     useEffect( ()=> {
-        // let url = `http://localhost:3001/candidates/${props.match.params.id}`
        getCandidate();
         
     }, [])

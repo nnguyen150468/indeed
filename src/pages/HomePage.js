@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {Link, useHistory} from 'react-router-dom'
 import {useSelector} from 'react-redux'
 
-const port = process.env.PORT || 4000;
+
 
 export default function HomePage(props) {
     let [candidates, setCandidates] = useState([])
@@ -77,11 +77,11 @@ export default function HomePage(props) {
                     </ListGroupItem>
                   </ListGroup>
                   <Card.Body>
-                    <Card.Link style={{display:(user.email==candidate.email || user.email==admin)? '':'none'}}  
+                    <Card.Link style={{display:(user.email===candidate.email || user.email===admin)? '':'none'}}  
                     onClick={() => onDeleteCandidate(candidate.id)}>
                       <FontAwesomeIcon icon={faTrash} /> Remove
                     </Card.Link>
-                    <Link style={{display:(user.email==candidate.email || user.email==admin)? '':'none'}} onClick={()=>{
+                    <Link style={{display:(user.email===candidate.email || user.email===admin)? '':'none'}} onClick={()=>{
                       if(user.email!==candidate.email&&user.email!==admin){
                         alert('You can only edit your account');
                         history.push('/')

@@ -3,7 +3,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { InputGroup, Row, Col, Form, Button, Container } from "react-bootstrap";
 import {useHistory} from 'react-router-dom'
 
-const port = process.env.PORT || 4000;
 
 export default function CandidateForm(props) {
   const [validated, setValidated] = useState(false);
@@ -40,23 +39,24 @@ export default function CandidateForm(props) {
     }
   }, [props.candidate]);
 
-  const updateCandidate = async () => {
-    const config = {
-      method: "PUT",
-      body: JSON.stringify(candidate),
-      headers: {
-        "Content-Type": "application/json"
-      }
-    };
-    try {
-      const response = await fetch(
-        `https://nguyen-indeed.herokuapp.com/candidates/${candidate.id}`,
-        config
-      );
-    } catch (error) {
-      console.log("Oops");
-    }
-  };
+  // const updateCandidate = async () => {
+  //   const config = {
+  //     method: "PUT",
+  //     body: JSON.stringify(candidate),
+  //     headers: {
+  //       "Content-Type": "application/json"
+  //     }
+  //   };
+  //   try {
+  //     const response = await fetch(
+  //       `https://nguyen-indeed.herokuapp.com/candidates/${candidate.id}`,
+  //       config
+  //     );
+  //   } catch (error) {
+  //     console.log("Oops");
+  //   }
+  // };
+
 
   //test w bitna
   const onSubmit = e => {
